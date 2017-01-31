@@ -1,0 +1,172 @@
+This tar file contains the files and directory required to run the Tel-Aviv university (TAU) 
+warm size-resolved cloud microphysics scheme within the KiD model.
+
+If you find any problems or have any questions please feel free to contact Adrian Hill 
+at adrian.hill@metoffice.gov.uk
+
+
+Introduction
+------------
+
+In this version of the TAU microphysics the cloud drop size distribution 
+is divided into 34 bins with a radii range of 1.56 to 3200 microns and 
+mass doubling from one bin to the next. The method of moments 
+(Tzivion et al. 1987, JAS) is used to solve for mass and number 
+concentration in each size bin that result from diffusional growth 
+(Tzivion et al 1989, JAS), collision-coalescence and collisional breakup 
+(Tzivion et al, 1987 and Feingold et al, 1989, JAS). Sedimentation is 
+performed using a first-order upwind scheme. Aerosol are represented 
+by a single prognostic variable that is assumed to be ammonium 
+sulfate with a log-normal distribution (Stevens et al 1996, JAS).
+
+The numerical methods and code in this module have been used in 
+a variety of 2-D and 3-D dynamical frameworks to investigate a 
+number of cloud microphysical problems. For example, 
+drizzle production in marine Sc (Feingold et al, 1996), the 
+dynamic and microphysical details of non-precipitating and precipitating 
+marine Sc (Stevens et al,JAS, 1996 & 1998), the effect of drizzle on 
+cloud optical depth and susceptibility (Feingold et al, JGR, 1997), 
+the role of giant CCN in marine Sc, (Feingold et al, JAS, 1999), 
+the role of giant CCN in cumulus (Yin et al, Atmospheric Research, 2000), 
+turbulence, condensation and liquid water transport in non-precipitating 
+marine Sc (Wang et al, JAS, 2003) and aerosol-cloud interactions 
+(Feingold et al, GRL, 2005; Jiang et al, JGR, 2006; 
+Xue and Feingold,JAS,2006; Xue et al, JAS, 2008; Hill et al, JAS, 2009)
+
+
+Contents TAU scheme tar file 
+----------------------------
+
+In the zip file there are the following files and directories:
+
+module_mp_tau_bin.f90
+- main bin model. This contains most of the routines for running the TAU model
+
+module_bin_init.f90
+- this contains routines that initialise the code variables for the 
+  TAU scheme, e.g. the routines in this module set-up the bin 
+  boundaries, aerosol and the collection kernels.
+
+mphys_tau_bin_declare.f90
+- declarations required for the bin model in the KiD model
+
+mphys_tau_bin.f90
+- this is the wrapper that couples the TAU schem to the 1D framework.
+
+tau_data
+- directory containing the collision-coalescence and breakup kernels
+
+
+Running the TAU scheme in KiD
+-----------------------------
+
+Read the documentation for the KiD model and install the KiD model.
+
+In the release version there is directory called "src", which 
+contains all the source code for the KiD model and the 
+released microphysics schemes. 
+
+- In src there is a dummy file "mphys_tau_bin.f90", 
+  replace this file with the mphys_tau_bin.f90 in this tar file 
+ 
+- Copy the module_mp_tau_bin.f90, module_bin_init.f90, 
+  mphys_tau_bin_declare.f90 files and tau_data directory into src.
+
+- In one of the namelists for a warm case (warm1 to 7) set the following
+    
+   ! number of moments for each species	
+   num_h_moments= 2,0,0,0,0	
+   num_h_bins=34,1,1,1,1	
+   ! Background values for eachmoment (assumed the same for all species)
+   mom_init=0,0,0   
+   
+   it is important to make sure that mom_init is set to 0 or the TAU model 
+   will crash or produce strange answers!!
+
+   Change the "!Aerosol Initialisation" section of the namelist to 
+    ! Aerosol initialization		
+    num_aero_moments=1,0,0
+    num_aero_bins=1
+    aero_N_init=100.e6, 0., 0
+    aero_sig_init=1.5, 0., 0
+    aero_rd_init=0.05e-6, 0, 0.
+
+    Where aero_N_init is the aerosol number conc (/m^3),  aero_rd_init is the mean radius of the aerosol distribution (m) and aero_sig_init is the standard deviation of the aerosol distribution. At present aerosol is only coded up to use number as this is all that is required. The aerosol distirbution of assumed to be a single mode log normal distribution.   
+
+   set 
+   mphys_scheme='tau_bin'
+
+Example namelists for the CU and Sc case are included in this package.  
+
+By making these changes the TAU model will run in the KiD model. 
+
+Other TAU specific parameters:
+
+The general release of the KiD contains a module "switches_bin.f90". The switches in this modules permit the user to select
+   
+   l_coll_coal - switches on collision-coalescence
+   l_break - switches on collisional breakup (only works is l_coll_coal=true)
+   l_sed_ult - true switches on ULTIMATE sedimetation, false uses first order upwind scheme 
+   	     (ULTIMATE sedimentation not available in present release, so switch does not work)
+
+If l_coll_coal is false the model with simulate activation, cond/evap and sedimentation as a default
+
+In "Switches.f90" there is the following switch
+
+ l_noadv_aerosols  
+- not used with the bin scheme
+l_fix_aerosols
+- if .true. aerosol will be constant throughout the simulation, 
+  i.e. no change due to microphysics or transport
+- if .false. aerosol will be removed by activation and 
+  replenished following complete evaporation of a drop, and aerosol will be advected 
+
+The above should permit a user to run a variety of configurations 
+of the TAU scheme in the KiD model. 
+
+If you find any problems or have any questions please feel free to contact adrian.hill@metoffice.gov.uk
+
+Changes/fixes from tau_release_1.1.489 to tau_release_2.2.489 (30/04/12)
+------------------------------------------------------------------------
+
+Modified the interface so that it will work with the KiD version 2, i.e.
+changed all declarations so TAU scheme can run in 1-D or 2-D
+
+The TAU scheme, and the whole KiD model has been tested with 
+ifort-12 and gfortran 4.4.5 on red hat linux in both debug mode with 
+no optimisation and optimisation of -O3. All these tests produced the 
+same results irrespective of compiler or optimisation   
+
+Changes/fixes from tau_release_1.1.489 to tau_release_1.2.489 (07/01/10)
+------------------------------------------------------------------------
+
+- Fixed a bug in the coupling between the TAU scheme and the KiD model (in mphys_tau_bin.f90). 
+
+  In tau_release_1.1.489, microphysics was being called for the lowest level. 
+This could be important if a simulation used a low resolution, as processes such 
+as evaporation are not calculated.
+ 
+  This has been fixed in the interface (mphys_tau_bin.f90) by setting the thermodynamic 
+and microphysics variables that are passed into the TAU scheme a level higher before 
+the call to, e.g. tau_bin
+ 
+  rhon(2:kkp)=rho(1:kkp-1)
+
+  where rhon(2:kkp)is TAU density and rho(1:kkp-1) is the KiD density
+
+  The values are set back following the call to tau_bin 
+
+- Removed ULTIMATE sedimentation
+
+  Further testing has shown that this code is not stable for all cases, so it has 
+been removed from this release. Once the code is stable we will issue an update with this code. 
+
+  The switch for ULTIMATE sedimentation (l_sed_ult) is still in switches_bin but it does nothing
+
+Changes/fixes from tau_release_1.2.489 to tau_release_1.3.489 (05/03/10)
+------------------------------------------------------------------------
+
+- Compiling with ifort 11.1 higlighted three divide by zero associated 
+  with array operations in the coupling between the KiD framework and 
+  the TAU scheme. These errors do not occur with ifort 10 and below 
+  when optimised, but they are still there. This version corrects these errors. 

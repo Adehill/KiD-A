@@ -1,0 +1,33 @@
+
+include defines.inc
+
+PP=cpp
+
+# Put the defines in here
+PPVALS=-DA04_3D=True \
+-DATMOS=True\
+-DCONTROL=True\
+-DA71_1A=True\
+-DA17_2A=True\
+-DA09_2A=True \
+#-DVECTLIB=False
+#-DSCMA=True\
+
+ifdef DEF_UM
+DIRS=UM_source 
+endif
+
+DONE=$(patsubst %, %/ppdone,$(DIRS)) 
+VPATH=$(patsubst %, %:,$(DIRS))
+
+PPF90=$(wildcard $(patsubst %,%/*.F90,$(DIRS)))
+PPF90_DONE=$(patsubst %.F90,%.f90,$(PPF90))
+
+
+$(PPF90_DONE): %.f90: %.F90
+	$(PP) $(PPVALS) $^ $@ 
+
+$(DIRS): $(PPF90_DONE)
+
+
+preprocess: $(DIRS)

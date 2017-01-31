@@ -1,0 +1,8 @@
+! If your compiler doesn't support the 'CALL GET_COMMAND_ARGUMENT'
+! F2003 intrinsic to obtain namelist value from the command line, then
+! comment out this call (in namelists.nml) and use this file to input
+! the value.
+&namelistToUse
+fileIn='namelists/SC_2D.nml'
+fileOut='output/SC_2D_out.nc'
+/

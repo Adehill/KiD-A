@@ -1,0 +1,56 @@
+!!!! TEMPLATE FOR THE 1D GASS MICROPHYSICS INTERCOMPARISON CASE !!!!!
+! This namelist uses the Tel-Aviv University (TAU) bin scheme 
+! with 34 double moment cloud bins, a max updraft (wctrl) of 1 m/s, 
+! model timestep (dt) = 1 s, diagnostic output (dg_dt) = 60 s 
+! and sim time (tctrl) = 10800 s. Initial aerosol distribution 
+! is assumed log normal, with intial conc = 100 /cm^3, mean radius 
+! = 0.04 microns and standard deviation = 1.4. Note that these 
+! differ from the settings in Shipway and Hill (2012)
+! 
+&mphys
+! hydrometeor names
+h_names=  'cloud',  'rain',  'ice',  'snow',  'graupel'  
+! number of moments for each species
+num_h_moments= 2,0,0,0,0
+num_h_bins=34,1,1,1,1
+! Background values for each moment (assumed the same for all species)
+mom_init=0,0,0
+! Aerosol initialization
+num_aero_moments=1,0,0
+num_aero_bins=1
+aero_N_init= 100.e6, 0, 0
+aero_sig_init=1.4, 0, 0
+aero_rd_init=0.04e-6, 0, 0.
+/
+
+&case
+icase=602
+/
+
+&control
+mphys_scheme='tau_bin'
+dt=1.0
+dgstart=0.0
+dg_dt=60.0
+tctrl(1)=10800.
+wctrl(1)=1.0
+lhf_ctrl(1)=3.
+shf_ctrl(1)=-3.
+/
+
+&switch
+! Standard switches for the 1D case
+! do not modify for intercomparison
+l_diverge=.False.
+l_fix_theta=.False.
+l_diverge_advection=.False.
+! If included in code the switch below can be used to control 
+! activation scavenging and in-cloud processing. 
+! Set to true if these processes are NOT required. The 
+! default is True
+l_fix_aerosols=.False.
+/
+
+&addcontrol
+iiwarm=.True.
+/
