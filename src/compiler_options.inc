@@ -6,8 +6,8 @@ COMPILER=ifort#     Intel
 
 VPATH = ./:./UM_source
 
-#NCPATH=/usr/local/netcdf/$(COMPILER)/
-NCPATH=/home/h01/lemdev/netcdf/$(COMPILER)/
+NCPATH=/usr/
+#NCPATH=/home/h01/lemdev/netcdf/$(COMPILER)/
 
 TESTING=
 
@@ -53,7 +53,7 @@ F90=$(COMPILER) $(OPTS)
 LD=$(F90)   # Linker
 
 INCDF=-I$(NCPATH)/include
-LNCDF=-L$(NCPATH)/lib -lnetcdf
+LNCDF=-L$(NCPATH)/lib -lnetcdff -lnetcdf
 LDFLAGS=$(INCDF) $(LNCDF)
 
 EXECUTABLE=$(MODEL)_$(CASE).exe

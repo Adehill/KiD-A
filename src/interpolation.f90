@@ -98,10 +98,12 @@ contains
        ! Initialize some species
        do ih=1,nspecies
           if (l_hinit(ih))then
-             do k=1,nz
-                do imom=1,num_h_moments(ih)
-                   hydrometeors(k,j,ih)%moments(:,imom) = &
-                        hydrometeors_init(k,ih)%moments(:,imom)
+             do j=0,nx+1 
+                do k=1,nz
+                   do imom=1,num_h_moments(ih)
+                      hydrometeors(k,j,ih)%moments(:,imom) = &
+                           hydrometeors_init(k,ih)%moments(:,imom)
+                   end do
                 end do
              end do
           end if
