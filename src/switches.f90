@@ -134,7 +134,9 @@ Module switches
        ,itest_case1   =999    ! Test case 2 
   integer, parameter :: &
         ipassive_sed_bulk1 = 501 & ! Passive sedimentation
-       ,ipassive_sed_bulk2 = 502   ! Passive sedimentation
+        ,ipassive_sed_bulk2 = 502 &  ! Passive sedimentation
+        ,ipassive_cmw_sed_test = 503 ! Passive sedimentation test with saturated profile 
+       !=====================
   integer, parameter :: &
        itest_2D = 600       &
        ,igcss_2d_Cu = 601   &  ! 2-D Cu case based on Morrison & Grabowski 06

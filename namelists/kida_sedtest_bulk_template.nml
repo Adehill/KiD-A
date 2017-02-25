@@ -15,7 +15,7 @@ aero_rd_init=0., 0.05e-6, 0.
 /
 
 &case
-icase=501
+icase=503
 /
 
 &control

@@ -85,6 +85,41 @@ contains
 
     select case (icase)
 
+   case(ipassive_cmw_sed_test)
+       !==============================================
+       ! GCSS microphysics intercomparison Warm Rain 1
+       !==============================================
+       ! Set default control values
+       if (all(zctrl==0.))zctrl(1:3)=(/ 3000., 2500., 2800. /)
+       if (all(wctrl==0.))wctrl(1)=2.
+       if (all(tctrl==0.))tctrl(1)=3600.
+       if (all(pctrl_v==0.))pctrl_v(1:3)=(/ 2., .001, 1.e6 /)
+       if (ipctrl==0)ipctrl=8
+
+       maxZ=zctrl(1)
+       maxT=tctrl(1)
+       n_times=int(maxT/dt)
+
+       call set_standard_profile(ipctrl,maxZ)
+
+       call allocate_forcing(nz,nx,n_times)
+
+       !initialize some rain (species 2?)
+       ih=int(pctrl_v(1))
+       l_hinit(ih)=.true.
+       do k=1,nz
+          call species_allocate(hydrometeors_init(k,ih) &
+               , num_h_moments(ih), num_h_bins(ih), ih)
+       end do
+       do k=1,nz
+          if (z(k)>zctrl(2) .and. z(k)<zctrl(3))then
+             hydrometeors_init(k, ih)%moments(1,1)=pctrl_v(2)
+             if (num_h_moments(ih)>1)then
+                hydrometeors_init(k, ih)%moments(1,2)=pctrl_v(3)
+             end if
+          end if
+       end do
+       
     case(ipassive_sed_bulk1)
        !==============================================
        ! GCSS microphysics intercomparison Warm Rain 1
@@ -93,7 +128,7 @@ contains
        if (all(zctrl==0.))zctrl(1:3)=(/ 3000., 2500., 2800. /)
        if (all(wctrl==0.))wctrl(1)=2.
        if (all(tctrl==0.))tctrl(1)=3600.
-       if (all(pctrl_v==0.))pctrl_v(1:3)=(/ 2., .001, 100.e6 /)
+       if (all(pctrl_v==0.))pctrl_v(1:3)=(/ 2., .001, 1.e6 /)
        if (ipctrl==0)ipctrl=1
 
        maxZ=zctrl(1)
@@ -775,6 +810,8 @@ contains
        call set_MPACE_profile(maxZ)
     case (7)
        call set_deep_profile(maxZ)
+    case (8)
+       call set_saturated_profile(maxZ)
     case default
        call set_RICO_profile(maxZ)
     end select
@@ -822,7 +859,7 @@ contains
     deallocate(qv_1d)
 
   end subroutine set_RICO_profile
-
+  
   subroutine set_DYCOMS_profile(maxZ)
     !
     ! Set up the profile according to the RICO GCSS intercomparison 
@@ -1063,6 +1100,56 @@ contains
     end do
 
   end subroutine set_deep_profile
+
+  subroutine set_saturated_profile(maxZ)
+    !
+    ! Set up the profile according to the RICO GCSS intercomparison,
+    ! but set qv = qsat for given theta. This set up is used for the
+    ! idealised wmo sed tests and box tests
+    ! 
+    real(wp), intent(in) :: maxZ
+
+    allocate(pHeight(3))
+    allocate(pTheta(3))
+    allocate(pRH(3))
+    allocate(RH(nz))
+    allocate(theta_1d(nz))
+    allocate(qv_1d(nz))
+    
+    pheight=(/ 0., 740., 3260./)
+    ptheta=(/ 297.9, 297.9, 312.66 /)
+    pRH=(/ 1., 1., 1. /)
+    
+    do k=1,nz
+       z(k)=maxZ*k/float(nz)
+    end do
+
+    call interpolate(pHeight, ptheta, z, theta_1d)
+    call interpolate(pHeight, pRH, z, RH)
+    
+    do j = 0,nx+1
+       theta(:,j) = theta_1d(:)
+    enddo
+
+    p_surf=p0
+    call z2exner
+    
+    call calc_derived_fields
+
+     do j=1,nx
+       do k=1,nz
+          qv(k,j)=RH(k)*qsaturation(TdegK(k,j),pmb(k,j))
+       end do
+    end do
+    
+    deallocate(pTheta)
+    deallocate(pHeight)
+    deallocate(pRH)
+    deallocate(RH)
+    deallocate(theta_1d)
+    deallocate(qv_1d)
+
+  end subroutine set_saturated_profile
 
   subroutine allocate_forcing(nz,nx,ntimes)
     integer, intent(in) :: nz, nx, ntimes

@@ -14,7 +14,7 @@ TESTING=
 ifeq ($(COMPILER), gfortran)
 FPP= -x f95-cpp-input
 ifdef TESTING
-OPTS=-g -O0 -W -Wall -pedantic-errors -fbounds-check -fbacktrace \
+OPTS=-g -O0 -W -Wall -fbounds-check -fbacktrace \
 -ffpe-trap=invalid,zero,overflow -frange-check #-Werror
 else
 OPTS=-O3 -pg -g
