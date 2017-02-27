@@ -22,6 +22,7 @@ module test_cases
   Use interpolation, only : interpolate, smooth1D
   Use switches
   Use class_species, only: species_allocate
+  Use init_bins, only: set_init_bins
 
   Use aerosols, only: moment_logn, awp=>wp, set_aerosol
 
@@ -62,7 +63,7 @@ module test_cases
        ,maxZ  & ! max height
        ,maxX    ! max horizontal extent
 
-
+  real(wp) :: mu
   
 contains
 
@@ -113,10 +114,27 @@ contains
        end do
        do k=1,nz
           if (z(k)>zctrl(2) .and. z(k)<zctrl(3))then
-             hydrometeors_init(k, ih)%moments(1,1)=pctrl_v(2)
-             if (num_h_moments(ih)>1)then
-                hydrometeors_init(k, ih)%moments(1,2)=pctrl_v(3)
-             end if
+              if (num_h_bins(ih) > 1)then
+                 mu=0.
+                 !add set_mu_r into namelists
+                !if (set_mu_r /=-999)mu=set_mu_r
+                call set_init_bins(          &
+                     hydrometeors_init(k, ih)  &
+                     , pctrl_v(2)              & 
+                     , pctrl_v(3)              &
+                     , mu                      &
+                     )
+             else
+                hydrometeors_init(k, ih)%moments(1,1)=pctrl_v(2)
+                if (num_h_moments(ih)>1)then
+                   hydrometeors_init(k, ih)%moments(1,2)=pctrl_v(3)
+                end if
+             endif
+          else
+              hydrometeors_init(k, ih)%moments(1,1)=0.0
+                if (num_h_moments(ih)>1)then
+                   hydrometeors_init(k, ih)%moments(1,2)=0.0
+                end if
           end if
        end do
        
