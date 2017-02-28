@@ -90,11 +90,12 @@ contains
        !==============================================
        ! GCSS microphysics intercomparison Warm Rain 1
        !==============================================
-       ! Set default control values
+      ! Set default control values
+      print *, 'Sed test begin'
        if (all(zctrl==0.))zctrl(1:3)=(/ 3000., 2500., 2800. /)
        if (all(wctrl==0.))wctrl(1)=2.
        if (all(tctrl==0.))tctrl(1)=3600.
-       if (all(pctrl_v==0.))pctrl_v(1:3)=(/ 2., .001, 1.e6 /)
+       if (all(pctrl_v==0.))pctrl_v(1:3)=(/ 1., .001, 1.e6 /)
        if (ipctrl==0)ipctrl=8
 
        maxZ=zctrl(1)
@@ -114,7 +115,7 @@ contains
        end do
        do k=1,nz
           if (z(k)>zctrl(2) .and. z(k)<zctrl(3))then
-              if (num_h_bins(ih) > 1)then
+             if (num_h_bins(ih) > 1)then
                  mu=0.
                  !add set_mu_r into namelists
                 !if (set_mu_r /=-999)mu=set_mu_r
@@ -124,12 +125,13 @@ contains
                      , pctrl_v(3)              &
                      , mu                      &
                      )
-             else
-                hydrometeors_init(k, ih)%moments(1,1)=pctrl_v(2)
-                if (num_h_moments(ih)>1)then
-                   hydrometeors_init(k, ih)%moments(1,2)=pctrl_v(3)
-                end if
-             endif
+               ! print *,  hydrometeors_init(k,ih)%moments(:,1), k
+            else
+               hydrometeors_init(k, ih)%moments(1,1)=pctrl_v(2)
+               if (num_h_moments(ih)>1)then
+                  hydrometeors_init(k, ih)%moments(1,2)=pctrl_v(3)
+               end if
+            endif
           else
               hydrometeors_init(k, ih)%moments(1,1)=0.0
                 if (num_h_moments(ih)>1)then
@@ -137,7 +139,6 @@ contains
                 end if
           end if
        end do
-       
     case(ipassive_sed_bulk1)
        !==============================================
        ! GCSS microphysics intercomparison Warm Rain 1

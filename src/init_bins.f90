@@ -51,15 +51,14 @@ contains
       mk(k)=mk(k-1)*2.
     end do
 
-    
-
     dk=(mk(1)/c)**(1./d)
     mbar=.5*(c*dk**d)
     nk(1)=n_0*lambda_0**(-(1.+mu))* &
-         (gamma(mu+1.) - gamma(mu+1., lambda_0*dk))
+         (gamma(mu+1.)- gamma(mu+1., lambda_0*dk))
     qk(1)=n_0*c*lambda_0**(-(1.+mu+d))* &
          (gamma(d+mu+1.) - gamma(d+mu+1., lambda_0*dk))
     qk(1)=nk(1)*mbar
+    print *, dk, mk(1), gamma(mu+1.), nk(1), lambda_0*dk
     do k=2,nbins
       dk=(mk(k)/c)**(1./d)
       dkm1=(mk(k-1)/c)**(1./d)
@@ -81,6 +80,7 @@ contains
     do k=1,nbins
       hydrometeor%moments(k,1)=qk(k)
       hydrometeor%moments(k,2)=nk(k)
+      print *, hydrometeor%moments(k,1), hydrometeor%moments(k,2)
       sumq=sumq+hydrometeor%moments(k,1)
       sumn=sumn+hydrometeor%moments(k,2)
     end do
