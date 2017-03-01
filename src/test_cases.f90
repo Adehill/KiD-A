@@ -86,6 +86,59 @@ contains
 
     select case (icase)
 
+   case(ipassive_cmw_box_test)
+       !==============================================
+       ! GCSS microphysics intercomparison Warm Rain 1
+       !==============================================
+      ! Set default control values
+      print *, 'box test begin'
+       if (all(zctrl==0.))zctrl(1:3)=(/ 100., 0., 100. /)
+       if (all(wctrl==0.))wctrl(1)=0.
+       if (all(tctrl==0.))tctrl(1)=3600.
+       if (all(pctrl_v==0.))pctrl_v(1:3)=(/ 1., .001, 100.e6 /)
+       if (ipctrl==0)ipctrl=8
+
+       maxZ=zctrl(1)
+       maxT=tctrl(1)
+       n_times=int(maxT/dt)
+
+       call set_standard_profile(ipctrl,maxZ)
+
+       call allocate_forcing(nz,nx,n_times)
+
+       !initialize some rain (species 2?)
+       ih=int(pctrl_v(1))
+       l_hinit(ih)=.true.
+       do k=1,nz
+          call species_allocate(hydrometeors_init(k,ih) &
+               , num_h_moments(ih), num_h_bins(ih), ih)
+       end do
+       do k=1,nz
+          if (z(k)>=zctrl(2) .and. z(k)<=zctrl(3))then
+             if (num_h_bins(ih) > 1)then
+                 mu=0.
+                 !add set_mu_r into namelists
+                !if (set_mu_r /=-999)mu=set_mu_r
+                call set_init_bins(          &
+                     hydrometeors_init(k, ih)  &
+                     , pctrl_v(2)              & 
+                     , pctrl_v(3)              &
+                     , mu                      &
+                     )
+               print *,  hydrometeors_init(k,ih)%moments(:,1), k
+            else
+               hydrometeors_init(k, ih)%moments(1,1)=pctrl_v(2)
+               if (num_h_moments(ih)>1)then
+                  hydrometeors_init(k, ih)%moments(1,2)=pctrl_v(3)
+               end if
+            endif
+          else
+              hydrometeors_init(k, ih)%moments(1,1)=0.0
+                if (num_h_moments(ih)>1)then
+                   hydrometeors_init(k, ih)%moments(1,2)=0.0
+                end if
+          end if
+       end do
    case(ipassive_cmw_sed_test)
        !==============================================
        ! GCSS microphysics intercomparison Warm Rain 1
@@ -95,7 +148,7 @@ contains
        if (all(zctrl==0.))zctrl(1:3)=(/ 3000., 2500., 2800. /)
        if (all(wctrl==0.))wctrl(1)=2.
        if (all(tctrl==0.))tctrl(1)=3600.
-       if (all(pctrl_v==0.))pctrl_v(1:3)=(/ 1., .001, 1.e6 /)
+       if (all(pctrl_v==0.))pctrl_v(1:3)=(/ 1., .001, 100.e6 /)
        if (ipctrl==0)ipctrl=8
 
        maxZ=zctrl(1)
@@ -125,7 +178,7 @@ contains
                      , pctrl_v(3)              &
                      , mu                      &
                      )
-               ! print *,  hydrometeors_init(k,ih)%moments(:,1), k
+               print *,  hydrometeors_init(k,ih)%moments(:,1), k
             else
                hydrometeors_init(k, ih)%moments(1,1)=pctrl_v(2)
                if (num_h_moments(ih)>1)then
@@ -1122,7 +1175,7 @@ contains
 
   subroutine set_saturated_profile(maxZ)
     !
-    ! Set up the profile according to the RICO GCSS intercomparison,
+    ! Set up the profile according to the CMW SC intercomparison,
     ! but set qv = qsat for given theta. This set up is used for the
     ! idealised wmo sed tests and box tests
     ! 
@@ -1135,9 +1188,9 @@ contains
     allocate(theta_1d(nz))
     allocate(qv_1d(nz))
     
-    pheight=(/ 0., 740., 3260./)
-    ptheta=(/ 297.9, 297.9, 312.66 /)
-    pRH=(/ 1., 1., 1. /)
+    pheight=(/ 0., 100./)
+    ptheta=(/ 289.0, 289.0 /)
+    pRH=(/ 1., 1. /)
     
     do k=1,nz
        z(k)=maxZ*k/float(nz)

@@ -135,7 +135,8 @@ Module switches
   integer, parameter :: &
         ipassive_sed_bulk1 = 501 & ! Passive sedimentation
         ,ipassive_sed_bulk2 = 502 &  ! Passive sedimentation
-        ,ipassive_cmw_sed_test = 503 ! Passive sedimentation test with saturated profile 
+        ,ipassive_cmw_sed_test = 503 & ! Passive sedimentation test with saturated profile
+        ,ipassive_cmw_box_test = 504 ! Passive box test with saturated profile 
        !=====================
   integer, parameter :: &
        itest_2D = 600       &

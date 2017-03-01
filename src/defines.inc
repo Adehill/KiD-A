@@ -48,6 +48,11 @@ D1=DEF_NX=60
 D2=DEF_NZ=61
 endif
 
+ifeq ($(CASE), CMW_BOX)
+D1=DEF_NX=1
+D2=DEF_NZ=4
+endif
+
 # Allow input at the command line
 COMMANDLINE=1
 # Use the following if it doesn't work with your compiler

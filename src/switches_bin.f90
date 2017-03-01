@@ -11,6 +11,9 @@ Module switches_bin
   Implicit None
 
   logical ::                      &
+       l_cond_evap=.False. ! Allow collision-coalescence (bin model)
+  
+  logical ::                      &
        l_coll_coal=.True. ! Allow collision-coalescence (bin model)
 
   logical ::                      &
