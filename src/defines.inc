@@ -50,7 +50,7 @@ endif
 
 ifeq ($(CASE), CMW_BOX)
 D1=DEF_NX=1
-D2=DEF_NZ=4
+D2=DEF_NZ=2
 endif
 
 # Allow input at the command line
