@@ -34,6 +34,7 @@ tctrl(1)=3600.
 pctrl_v(1) = 1. ! hydrometeor to initialise
 pctrl_v(2) = 0.001 ! bulk mass kg/kg (integrate over the distribution)
 pctrl_v(3) = 100.e6 ! bulk Nc /kg
+pctrl_v(4) = 10.0    ! mu, shape parameter
 /
 
 &switch

@@ -95,7 +95,7 @@ contains
        if (all(zctrl==0.))zctrl(1:3)=(/ 100., 0., 100. /)
        if (all(wctrl==0.))wctrl(1)=0.
        if (all(tctrl==0.))tctrl(1)=3600.
-       if (all(pctrl_v==0.))pctrl_v(1:3)=(/ 1., .001, 100.e6 /)
+       if (all(pctrl_v==0.))pctrl_v(1:4)=(/ 1., .001, 100.e6, 0.0/)
        if (ipctrl==0)ipctrl=8
 
        maxZ=zctrl(1)
@@ -123,7 +123,7 @@ contains
                      hydrometeors_init(k, ih)  &
                      , pctrl_v(2)              & 
                      , pctrl_v(3)              &
-                     , mu                      &
+                     , pctrl_v(4)              &
                      )
                print *,  hydrometeors_init(k,ih)%moments(:,1), k
             else
