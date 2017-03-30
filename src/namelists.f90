@@ -33,7 +33,8 @@ module namelists
   
   namelist/control/dt, dg_dt, mphys_scheme, mphys_var &
        , wctrl, zctrl, tctrl, pctrl_z, pctrl_v, pctrl_T, ipctrl &
-       , xctrl, lhf_ctrl, shf_ctrl, diaglevel, dgstart  
+       , xctrl, lhf_ctrl, shf_ctrl, diaglevel, dgstart &
+       , init_hydrometeors
 
   namelist/case/input_file, l_input_file, ifiletype, icase
 

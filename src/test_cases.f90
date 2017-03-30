@@ -106,7 +106,8 @@ contains
 
        call allocate_forcing(nz,nx,n_times)
 
-       !initialize some rain (species 2?)
+       !if (init_hydrometeors) then 
+          !initialize some rain (species 2?)
        ih=int(pctrl_v(1))
        l_hinit(ih)=.true.
        do k=1,nz
@@ -116,8 +117,8 @@ contains
        do k=1,nz
           if (z(k)>=zctrl(2) .and. z(k)<=zctrl(3))then
              if (num_h_bins(ih) > 1)then
-                 mu=0.
-                 !add set_mu_r into namelists
+                mu=0.
+                !add set_mu_r into namelists
                 !if (set_mu_r /=-999)mu=set_mu_r
                 call set_init_bins(          &
                      hydrometeors_init(k, ih)  &
@@ -125,20 +126,22 @@ contains
                      , pctrl_v(3)              &
                      , pctrl_v(4)              &
                      )
-               print *,  hydrometeors_init(k,ih)%moments(:,1), k
-            else
-               hydrometeors_init(k, ih)%moments(1,1)=pctrl_v(2)
-               if (num_h_moments(ih)>1)then
-                  hydrometeors_init(k, ih)%moments(1,2)=pctrl_v(3)
-               end if
-            endif
-          else
-              hydrometeors_init(k, ih)%moments(1,1)=0.0
+                print *,  hydrometeors_init(k,ih)%moments(:,1), k
+             else
+                hydrometeors_init(k, ih)%moments(1,1)=pctrl_v(2)
                 if (num_h_moments(ih)>1)then
-                   hydrometeors_init(k, ih)%moments(1,2)=0.0
+                   hydrometeors_init(k, ih)%moments(1,2)=pctrl_v(3)
                 end if
+             endif
+          else
+             hydrometeors_init(k, ih)%moments(1,1)=0.0
+             if (num_h_moments(ih)>1)then
+                hydrometeors_init(k, ih)%moments(1,2)=0.0
+             end if
           end if
        end do
+       !endif
+          
    case(ipassive_cmw_sed_test)
        !==============================================
        ! GCSS microphysics intercomparison Warm Rain 1
@@ -1190,7 +1193,7 @@ contains
     
     pheight=(/ 0., 100./)
     ptheta=(/ 289.0, 289.0 /)
-    pRH=(/ 1., 1. /)
+    pRH=(/ 1.0, 1.0 /)
     
     do k=1,nz
        z(k)=maxZ*k/float(nz)
@@ -1205,6 +1208,11 @@ contains
 
     p_surf=p0
     call z2exner
+
+    ! override the density calc in z2exner and set density to 1.0
+    do j = 1,nx
+       rho(:)=1.0
+    end do
     
     call calc_derived_fields
 

@@ -179,6 +179,7 @@ Module switches
        , lhf_ctrl=0.        & ! control latent heat forcing
        , shf_ctrl=0.          ! control sensible heat forcing
   integer :: ipctrl=0 ! control standard profile choices
+  logical :: init_hydrometeors = .false.
   
   integer :: iforce_method=0 ! Method of applying forcing
                              !  0 = tendencies applied

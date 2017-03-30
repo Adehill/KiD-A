@@ -28,13 +28,13 @@ icase=504
 mphys_scheme='tau_bin'
 dt=1.0
 dgstart=0.0
-dg_dt=30.0
+dg_dt=2.0
 wctrl(1)=0.0
-tctrl(1)=3600.
+tctrl(1)=600.
 pctrl_v(1) = 1. ! hydrometeor to initialise
-pctrl_v(2) = 0.001 ! bulk mass kg/kg (integrate over the distribution)
-pctrl_v(3) = 100.e6 ! bulk Nc /kg
-pctrl_v(4) = 10.0    ! mu, shape parameter
+pctrl_v(2) = 0.0001 ! bulk mass kg/kg (integrate over the distribution)
+pctrl_v(3) = 300.e6 ! bulk Nc /kg
+pctrl_v(4) = 0.0    ! mu, shape parameter
 /
 
 &switch
@@ -57,4 +57,5 @@ l_advect=.false.
 
 &addcontrol
 iiwarm=.True.
+smax = 0.1  ! prescribed supersaturation forcing
 /

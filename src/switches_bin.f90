@@ -11,10 +11,13 @@ Module switches_bin
   Implicit None
 
   logical ::                      &
-       l_cond_evap=.False. ! Allow collision-coalescence (bin model)
+       l_act=.false.       ! Allow activation
   
   logical ::                      &
-       l_coll_coal=.True. ! Allow collision-coalescence (bin model)
+       l_cond_evap=.true. ! Allow condensation and evaporatio (bin model)
+
+  logical ::                      &
+       l_coll_coal=.false. ! Allow collision-coalescence (bin model)
 
   logical ::                      &
        l_break=.False.     ! Allow collisional breakup (bin model)
