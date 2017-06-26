@@ -215,5 +215,21 @@ Module switches
   logical :: set_l_abelshipway=.false. ! use abelshipway fallspeed
   logical :: set_l_cons=.false. ! conserve number
 
+  ! switches for TAU bin scheme (use to be in switches_bin)
+  logical ::                      &
+       l_act=.false.       ! Allow activation
+  
+  logical ::                      &
+       l_cond_evap=.true. ! Allow condensation and evaporatio (bin model)
 
+  logical ::                      &
+       l_coll_coal=.false. ! Allow collision-coalescence (bin model)
+
+  logical ::                      &
+       l_break=.False.     ! Allow collisional breakup (bin model)
+
+  logical ::                      &
+       l_fix_supersat = .False. ! Allow user to prescribe supersaturation. This is
+                                ! only applicable to box condensational growth case. 
+                                ! Be careful setting this for other cases!
 end Module switches

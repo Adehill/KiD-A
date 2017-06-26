@@ -53,6 +53,14 @@ l_fix_aerosols=.true.
 ! on
 l_sediment=.false.
 l_advect=.false.
+! TAU switches
+l_act=.false.       ! Allow activation
+l_cond_evap=.true. ! Allow condensation and evaporatio (bin model)
+l_coll_coal=.false. ! Allow collision-coalescence (bin model)
+l_break=.False.     ! Allow collisional breakup (bin model)
+l_fix_supersat = .True. ! Allow user to prescribe supersaturation. This is
+                         ! only applicable to box condensational growth case. 
+                         ! Be careful setting this for other cases!
 /
 
 &addcontrol

@@ -11,7 +11,6 @@ module namelists
   Use parameters
   Use header_data, only : mphys_id
   Use switches
-  Use switches_bin
 
 #if SHIPWAY_MICRO == 1
   ! Temporary for adding in 4a switches
@@ -43,8 +42,10 @@ module namelists
        , l_fix_theta, l_nomphys_theta, l_noadv_theta  &
        , l_noadv_hydrometeors, l_nodiv_hydrometeors, l_sediment &
        , isurface, l_noadv_aerosols, l_nodiv_aerosols, l_fix_aerosols &
-       , l_sed_ult, l_diverge_advection, l_periodic_bound  &
-       , l_force_positive, l_raut
+       , l_diverge_advection, l_periodic_bound  &
+       , l_force_positive, l_raut &
+       ! TAU bin switches
+       , l_act, l_cond_evap, l_coll_coal, l_break, l_fix_supersat
 
   logical :: iiwarm=.false.
   character(200) :: KiD_outdir=''
