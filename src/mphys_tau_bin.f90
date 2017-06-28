@@ -12,8 +12,8 @@ module mphys_tau_bin
   Use column_variables
   Use physconst, only : p0, this_r_on_cp=>r_on_cp, pi
   Use mphys_tau_bin_declare
-  
-  Use switches_bin
+  Use switches, only : l_act, l_cond_evap, l_coll_coal, l_break, &
+       l_fix_supersat
   Use module_mp_tau_bin 
   Use module_bin_init
 

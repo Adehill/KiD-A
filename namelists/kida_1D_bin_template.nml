@@ -30,7 +30,7 @@ dt=1.0
 dgstart=0.0
 dg_dt=10.0
 wctrl(1)=2.0
-tctrl(1)=3600.
+tctrl(1)=600.
 tctrl(2)=600.
 /
 
@@ -49,6 +49,14 @@ l_fix_aerosols=.true.
 ! Switch for sedimention True = sedimentation is 
 ! on
 l_sediment=.true.
+! TAU switches
+l_act=.true.       ! Allow activation
+l_cond_evap=.true. ! Allow condensation and evaporatio (bin model)
+l_coll_coal=.false. ! Allow collision-coalescence (bin model)
+l_break=.False.     ! Allow collisional breakup (bin model)
+l_fix_supersat = .false. ! Allow user to prescribe supersaturation. This is
+                         ! only applicable to box condensational growth case. 
+                         ! Be careful setting this for other cases!
 /
 
 &addcontrol
