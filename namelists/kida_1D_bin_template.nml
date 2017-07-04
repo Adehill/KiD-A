@@ -15,7 +15,7 @@ mom_init=0,0,0
 ! Aerosol initialization
 num_aero_moments=1,0,0
 num_aero_bins=1
-aero_N_init=100.e6, 0, 0
+aero_N_init=50.e6, 0, 0
 aero_sig_init=1.4, 0, 0
 aero_rd_init=0.04e-6, 0., 0
 /
@@ -30,7 +30,7 @@ dt=1.0
 dgstart=0.0
 dg_dt=10.0
 wctrl(1)=2.0
-tctrl(1)=600.
+tctrl(1)=3600.
 tctrl(2)=600.
 /
 
@@ -52,11 +52,14 @@ l_sediment=.true.
 ! TAU switches
 l_act=.true.       ! Allow activation
 l_cond_evap=.true. ! Allow condensation and evaporatio (bin model)
-l_coll_coal=.false. ! Allow collision-coalescence (bin model)
+l_coll_coal=.true. ! Allow collision-coalescence (bin model)
 l_break=.False.     ! Allow collisional breakup (bin model)
 l_fix_supersat = .false. ! Allow user to prescribe supersaturation. This is
                          ! only applicable to box condensational growth case. 
                          ! Be careful setting this for other cases!
+l_dist_activated_drops = .true.
+mu_act = 0.0
+act_bin_ind = 6
 /
 
 &addcontrol

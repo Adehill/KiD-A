@@ -45,7 +45,8 @@ module namelists
        , l_diverge_advection, l_periodic_bound  &
        , l_force_positive, l_raut &
        ! TAU bin switches
-       , l_act, l_cond_evap, l_coll_coal, l_break, l_fix_supersat
+       , l_act, l_cond_evap, l_coll_coal, l_break, l_fix_supersat &
+       , l_dist_activated_drops, mu_act, act_bin_ind
 
   logical :: iiwarm=.false.
   character(200) :: KiD_outdir=''

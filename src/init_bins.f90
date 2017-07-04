@@ -57,7 +57,7 @@ contains
          (gamma(mu+1.)- gamma(mu+1., lambda_0*dk))
     qk(1)=n_0*c*lambda_0**(-(1.+mu+d))* &
          (gamma(d+mu+1.) - gamma(d+mu+1., lambda_0*dk))
-    qk(1)=nk(1)*mbar
+    !qk(1)=nk(1)*mbar
     do k=2,nbins
       dk=(mk(k)/c)**(1./d)
       dkm1=(mk(k-1)/c)**(1./d)
@@ -84,6 +84,9 @@ contains
       sumn=sumn+hydrometeor%moments(k,2)
     end do
 
+    print *, q, sumq
+    stop
+    
   end subroutine set_init_bins
 
 end Module init_bins

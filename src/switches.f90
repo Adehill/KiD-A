@@ -217,13 +217,13 @@ Module switches
 
   ! switches for TAU bin scheme (use to be in switches_bin)
   logical ::                      &
-       l_act=.false.       ! Allow activation
+       l_act=.true.       ! Allow activation
   
   logical ::                      &
        l_cond_evap=.true. ! Allow condensation and evaporatio (bin model)
 
   logical ::                      &
-       l_coll_coal=.false. ! Allow collision-coalescence (bin model)
+       l_coll_coal=.true. ! Allow collision-coalescence (bin model)
 
   logical ::                      &
        l_break=.False.     ! Allow collisional breakup (bin model)
@@ -232,4 +232,12 @@ Module switches
        l_fix_supersat = .False. ! Allow user to prescribe supersaturation. This is
                                 ! only applicable to box condensational growth case. 
                                 ! Be careful setting this for other cases!
+  logical ::                      &
+       l_dist_activated_drops = .False. ! Allow activated number and mass to be 
+                                        ! distributed over a gamma dist. Default
+                                        ! is false so all activated mass will be put
+                                        ! into first bin
+  real(wp) :: mu_act = -999.       ! shape parameter of the activated distribution
+  integer :: act_bin_ind = 1  ! This is the bin that is used to calculate the activated
+                               ! mass. This is a test and should be used with care.
 end Module switches
