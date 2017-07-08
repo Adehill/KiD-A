@@ -37,9 +37,9 @@ tctrl(2)=600.
 &switch
 ! Standard switches for the 1D case
 ! do not modify for intercomparison
-l_diverge=.True.
+l_diverge=.False.
 l_fix_theta=.true.
-l_diverge_advection=.True.
+l_diverge_advection=.False.
 l_periodic_bound=.False.
 ! If included in code the switch below can be used to control 
 ! activation scavenging and in-cloud processing. 
@@ -48,16 +48,17 @@ l_periodic_bound=.False.
 l_fix_aerosols=.true.
 ! Switch for sedimention True = sedimentation is 
 ! on
-l_sediment=.true.
+l_sediment=.false.
+l_noadv_hydrometeors=.true.
 ! TAU switches
 l_act=.true.       ! Allow activation
 l_cond_evap=.true. ! Allow condensation and evaporatio (bin model)
-l_coll_coal=.true. ! Allow collision-coalescence (bin model)
+l_coll_coal=.false. ! Allow collision-coalescence (bin model)
 l_break=.False.     ! Allow collisional breakup (bin model)
 l_fix_supersat = .false. ! Allow user to prescribe supersaturation. This is
                          ! only applicable to box condensational growth case. 
                          ! Be careful setting this for other cases!
-l_dist_activated_drops = .true.
+l_dist_activated_drops = .false.
 mu_act = 0.0
 act_bin_ind = 6
 /

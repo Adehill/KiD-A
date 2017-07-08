@@ -116,6 +116,7 @@ module advection_interface
 
 
     ! Hydrometeors
+    if (.not. l_noadv_hydrometeors) then
     do ih=1,nspecies
        do ibin=1,num_h_bins(ih)
           do imom=1,num_h_moments(ih)
@@ -140,6 +141,7 @@ module advection_interface
           end do
        end do
     end do
+    endif
 
     deallocate(field_adv)
     deallocate(field)
