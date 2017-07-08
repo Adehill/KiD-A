@@ -51,10 +51,10 @@ cond-evap case only aersol-activation (dependent on scheme), condensation and ev
 Precipitating case - no removal or replenishment of aerosol and no in-cloud aerosol processing.
 Precip case with aerosol processing - this will include the removal of aerosol by activation scavenging, replenishment of aerosol by evaporation and in-cloud aerosol processing.
 In all cases, we apply the following spin-up
-0 - 10 mins - During this period maximum supersaturation is restricted to 0.5%, all velocities are 0 and precipitation processes are switched off.
-10 - 20 mins - supersaturation is no longer restricted and velocities gradually increase to the wctrl but precipitation processes are switched off
-20 - 30 mins - run for 10 minutes with standard wctrl (0.25 or 1 m s-1) with precipitation switched off
-30 - 3 hours 30 mins - run with precipitation switched on
+- 0 - 10 mins - During this period maximum supersaturation is restricted to 0.5%, all velocities are 0 and precipitation processes are switched off.
+- 10 - 20 mins - supersaturation is no longer restricted and velocities gradually increase to the wctrl but precipitation processes are switched off
+- 20 - 30 mins - run for 10 minutes with standard wctrl (0.25 or 1 m s-1) with precipitation switched off
+- 30 - 3 hours 30 mins - run with precipitation switched on
 The reason for this 30 minute initialisation is because the case starts with a supersaturation, which can cause some models some problems. Also, the 30 muinute initialisation permits the development of the cloud drop distribution in the bin and super-droplet schemes, prior to precipitation processes.
 To set-up this initialisation, we have added the following switches to the KiD model and the namelists:
 
@@ -73,11 +73,11 @@ A diagnostic requirement for all schemes (bulk and detailed bin microphysics) is
 
 In addition to cloud microphysics fields, we also require the following aersol diagnostics from schemes that include aerosol and aersol processing.
 
-Aerosol mass activation rate
-Aerosol converted from cloud droplets to rain drops via autoconversion
-Aerosol converted from cloud droplets to rain drops via accretion
-Aerosol lost to the surface via precipitation removal
-Aerosol regeneration rate via droplet evaporation
+- Aerosol mass activation rate
+- Aerosol converted from cloud droplets to rain drops via autoconversion
+- Aerosol converted from cloud droplets to rain drops via accretion
+- Aerosol lost to the surface via precipitation removal
+- Aerosol regeneration rate via droplet evaporation
 Finally, for the bin microphysics schemes, we have requested that bin diagnostics be included so that we are able to analyse the particle size distributions. This can lead to very large diagnostic files; thereofre, we kindly ask that zipped files be submitted.
 
 Once diagnostics files are available and participants are ready to submit, participants should contact Adrian Hill (adrian.hill@metoffice.gov.uk) and Zach Lebo ( zlebo@uwyo.edu ).
