@@ -1,3 +1,6 @@
+- 
+{:toc}
+
 # Introduction
 
 A major uncertainty in numerical weather prediction (NWP) and climate prediction is the response of clouds and precipitation to changes in aerosol concentrations. Previous intercomparison work has shown that the simulation of precipitation for a given cloud drop number concentration (Nd) and the response of precipitation to changes in Nd in cloud resolving models (CRMs) and idealised kinematic frameworks is very sensitive to both the physical representation of microphysics and numerical complexity of the scheme cloud microphysics (e.g. ADD REFERENCE). The purpose of this microphysics intercomparison project is to compare detailed size resolved and bulk parametrised microphysics schemes to understand how they simulate aerosol-cloud-precipitation interactions. The project consists of two phases:
