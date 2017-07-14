@@ -1,4 +1,6 @@
-## Welcome
+# Welcome to the Kinematic Driver model
+- 
+{:toc}
 
 This is the main repository for the Kinematic Driver model (KiD). This is the version of the model that was designed for the GASS microphysics project and the Cloud modelling workshop (2016).
 
