@@ -29,7 +29,7 @@ mphys_scheme='tau_bin'
 dt=1.0
 dgstart=0.0
 dg_dt=10.0
-wctrl(1)=2.0
+wctrl(1)=1.25
 tctrl(1)=3600.
 tctrl(2)=600.
 /

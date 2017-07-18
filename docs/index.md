@@ -3,27 +3,25 @@
 
 # Introduction
 
-A major uncertainty in numerical weather prediction (NWP) and climate prediction is the response of clouds and precipitation to changes in aerosol concentrations. Previous intercomparison work has shown that the simulation of precipitation for a given cloud drop number concentration (Nd) and the response of precipitation to changes in Nd in cloud resolving models (CRMs) and idealised kinematic frameworks is very sensitive to both the physical representation of microphysics and numerical complexity of the scheme cloud microphysics (e.g. ADD REFERENCE). The purpose of this microphysics intercomparison project is to compare detailed size resolved and bulk parametrised microphysics schemes to understand how they simulate aerosol-cloud-precipitation interactions. The project consists of two phases:
-
-- Phase 1 - Employ the Kinematic Driver model (KiD) to compare microphysics schemes when considering the a) the simulation of warm rain b) the response of warm rain to changes in Nd and c) in-cloud processing of aerosol 
-- Phase 2 - investigate a, b and c from phase 1 with a dynamic case in CRMs, where the dynamic feedbacks are considered 
-
-This site presents the details for the Phase 1 of the project, KiD-A 
+A major uncertainty in numerical weather prediction (NWP) and climate prediction is the response of clouds and precipitation to changes in aerosol concentrations. Previous intercomparison work has shown that the simulation of precipitation for a given cloud drop number concentration (Nd) and the response of precipitation to changes in Nd in cloud resolving models (CRMs) and idealised kinematic frameworks is very sensitive to both the physical representation of microphysics and numerical complexity of the scheme cloud microphysics (e.g. ). The purpose of this microphysics intercomparison project is to compare detailed size resolved and bulk parametrised microphysics schemes to understand how they simulate aerosol-cloud-precipitation interactions. The first phase of this project employs the Kinematic Driver model (KiD) to compare microphysics schemes when considering the simulations of and the response of warm rain to changes in N_d. Further this intercomparison will investigate the role of in-cloud processing of aerosol  
 
 # Overview of the KiD-A project
-The overarching aim of KiD-A is to use the Kinematic Driver model (KiD) to compare detailed and bulk microphysics schemes in a dynamically consistent framework without the complication of dynamic feedbacks and numerical issues, that have been experienced in previous intercomparison projects. The main aims are:
+The overarching aim of KiD-A is to use the Kinematic Driver model (KiD) to compare detailed and bulk microphysics schemes in a dynamically consistent framework without dynamic feedbacks, which have complicated the interpretation of previous intercomparison projects. The main aims are:
 1. Undertake the first kinematic intercomparison of detailed microphysics schemes, i.e. size resolved bin microphysics schemes, superdroplet schemes and 2D aerosol-cloud schemes 
-This will be a sanity check to make sure that the schemes, which are consistently used to develop simpler bulk schemes produce similar results, when forced with the same dynamics. 
-Tests will be performed for a range of initial aerosol concentrations and 1D and 2D kinematic cases 
-Tests will exclude in-cloud aersol processing and focus solely on the precipitation processes, timing and amount 
+- This will be a sanity check to make sure that the schemes, which are consistently used to develop simpler bulk schemes produce similar results, when forced with the same dynamics. 
+- Tests will be performed for a range of initial aerosol concentrations and 1D and 2D kinematic cases 
+- Tests will exclude in-cloud aersol processing and focus solely on the precipitation processes, timing and amount 
 2. Examine and compare in-cloud aerosol processing from both detailed microphysics and bulk microphysical representations. 
-This stage of the project will compare the detailed and bulk microphysics schemes that can include in-cloud aersol processing. 
-This will be based on only the 2D kinematic cases. 
-The results from this stage will be used to benchmark present modeling capability when considering aerosol-cloud-precipitation interactions. 
+- This stage of the project will compare the detailed and bulk microphysics schemes that can include in-cloud aersol processing. 
+- This will be based on only the 2D kinematic cases. 
+- The results from this stage will be used to benchmark present modeling capability when considering aerosol-cloud-precipitation interactions. 
 
-## Kinematic Driver Model (KiD)
+# Kinematic Driver Model (KiD)
 
-The KiD model is the basis of Phase 1 of the KiD-A project. The source code is available on this site and documentation contains all of the details about how to build and run the KiD model as well as details about haow to add a microphysics scheme and include diagnostics. This version of the code includes old versions of the Morrison microphysics and Thompson microphysics schemes (both single and double moment rain schemes) and a dummy subroutine that contains details about how to obtain and include the Tel-Aviv University (TAU) bin microphysics schemes.
+The KiD model is the computational and numerical basis the KiD-A project. The source code is available from the [main KiD-A github repository]((https://github.com/Adehill/KiD-A) and can be obtained by either of the following methods
+- downloading the zip file from [main KiD-A github repository]((https://github.com/Adehill/KiD-A)
+- clone the repository to your system using '''git clone https://github.com/Adehill/KiD-A.git'''
+The '''docs''' directory in the download or cloned repository contains the [KiD documentation](https://github.com/Adehill/KiD-A/blob/master/docs/KiD_2.3.2625.pdf),  which details how to build and run the KiD model as well as details about haow to add a microphysics scheme and include diagnostics. This version of the code includes old versions of the Morrison microphysics and Thompson microphysics schemes (both single and double moment rain schemes) and a dummy subroutine that contains details about how to obtain and include the Tel-Aviv University (TAU) bin microphysics schemes.
 
 It is expected that participants will add their microphysics scheme to the KiD model. This will involve writing an interface that couples the generic KiD prognostics to the microphysics variables. The documentation describes how to add a scheme to the KiD framework, while the Morrison, Thompson and TAU provide schemes are provided as examples of adding a microphysics code to the KiD model. In general, there is no need to change the microphysics code so that it will work with the KiD model. Further, diagnostic calls may be required in the microphysics code so that process rates and precipitation rates are output. Otherwise, all required diagnostics will be automatically output once a scheme is successfully coupled. The required diagnostics are discussed below.
 
@@ -33,52 +31,52 @@ Please do not submit results from the provided schemes (i.e., Morrison, Thompson
 
 The KiD-A intercomparison uses following testcases, which can all be found in [KiD testcase directory](https://github.com/Adehill/KiD-A/blob/master/namelists)
 
-## Standard tests
-- 1D case
-   - simple 1D updraft case based on that described in Shipway and Hill (2012). 
-   - See [1D bulk namelist template](https://github.com/Adehill/KiD-A/blob/master/namelists/kida_1D_bulk_template.nml) or the [1D bin namelist template](https://github.com/Adehill/KiD-A/blob/master/namelists/kida_1D_bin_template.nml) for set-up
+## 1D and 2D kinematic cases
 
-- 2D stratocumulus (Sc 2D)
-   - based on the case 4 from the 9th International Cloud modelling workshop (2016)
-   - [Sc 2D bin template](https://github.com/Adehill/KiD-A/blob/master/namelists/kida_wmoSC_2d_bin_template.nml) or [Sc 2d bulk template](https://github.com/Adehill/KiD-A/blob/master/namelists/kida_wmoSC_2d_bulk_template.nml)
-
+### Aerosol specifications for 1D and 2D case
 In both cases aerosol are assumed to be soluble ammonium sulfate particles. The initial aerosol distribution is assumed to be a single mode lognormal distribution with a lognormal geometric mean diameter = 0.08 * 10-6m and a log standard deviation = 1.4. The initial aerosol number concentrations (Na) are defined in the test case descriptions below. These parameters are defined in the test case namelists. If a participants model does not include aerosol, please set the initial cloud drop number concentration (Nd) to the initial Na defined below.
 
-##  
+
+### 1D case
+- This is the initial cloud microphysics case with simple 1D updraft, which is based on Shipway and Hill (2012). The case employs a fixed aerosol or Nd depending on scheme (no aerosol processing)
+- Two vertical velocity set-ups are requested for this case, i.e.
+   - W1p25 where '''wctrl = 1.25 m s^{-1}
+   - W2 where '''wctrl = 2 m s^{-1}
+      - NOTE: The updraft velocities are lower than previous iterations of this project and Shipway and Hill (2012) because the divergence term has been switched. This is required for a fair comparison between the bin and lagrangian model. 
+- For both W1p25 and W2, we require a simulation for Na or Nd (depending on the scheme) = 50, 150 and 300 cm-3.
+- For each updraft and Nd, you are asked to simulate the following:
+   - cond-evap case - only aersol-activation (dependent on scheme), condensation and evaporation are switched on, i.e. sedimentation, collision-coalescence, breakup, etc. are switched off.
+   - Precipitating case - all cloud microphysics processes are switched on; however, no removal or replenishment of aerosol and no in-cloud aerosol processing (in schemes that have this functionality) should be simulated.
+- Templates for a bin and bulk namelist required to run the 1D case, i.e. namelists/kida_icmw1D_bin_template and namelists/kida_icmw1D_bulk_template.nml are provided in the repository (see [1D bulk namelist template](https://github.com/Adehill/KiD-A/blob/master/namelists/kida_icmw1D_bulk_template.nml) and a [1D bin namelist template](https://github.com/Adehill/KiD-A/blob/master/namelists/kida_icmw1D_bin_template.nml) ).
+- To build and run this case with gfortran type the following (assuming you are in the KiD-A directory) 
+   - '''make COMPILER=gfortran CASE=1D all'''
+   - '''./bin/KiD_1D.exe namelists/kida_icmw1D_bulk_template.nml'''
+   
+### 2D stratocumulus (Sc 2D)
+- based on the case 4 from the 9th International Cloud modelling workshop (2016).
+- we require a simulation to be run with maximum vertical velocity (wctrl) = 0.25 and 1 m s-1. Once again wctrl is set in the namelist for the case. Na (or Nd depending on scheme) = 50, 150 and 300 cm-3 for the following configurations:
+   - cond-evap case only aersol-activation (dependent on scheme), condensation and evaporation are switched on, i.e. sedimentation, collision-coalescence, breakup, etc. are switched off.
+   - Precipitating case - no removal or replenishment of aerosol and no in-cloud aerosol processing (where this is possible with your scheme)
+   - Precip case with aerosol processing - this will include the removal of aerosol by activation scavenging, replenishment of aerosol by evaporation and in-cloud aerosol processing.
+- In all cases, we apply the following start-up to prevent numerical problems the initial supersaturation 
+   - 0 - 10 mins - During this period maximum supersaturation is restricted to 0.5%, all velocities are 0.
+   - 10 - 20 mins - supersaturation is no longer restricted and velocities gradually increase to the wctrl
+   - 20 - 3 hours - run simulation
+   - To set-up this initialisation, we have added the following switches to the KiD model and the namelists:
+      - ''' smax_limit_time = 600.0 ! The time from the beginning of the simulation with in which a maximum supersaturation is applied '''
+      - ''' smax = 0.5 ! the maximum percentage supersaturation during smax_limit_time '''
+   - Participants need to add these switches to the appropriate parts of the microphysics code so that the recommended initialisation is used. The switches are stored in the namelists module.
+- Templates for a bin and bulk namelist required to run the 2D Sc case, i.e. namelists/kida_icmwSC_2d_bin_template.nml and namelists/kida_icmwSC_2d_bulk_template.nml, are provided in the repository (see [Sc 2D bin template](https://github.com/Adehill/KiD-A/blob/master/namelists/kida_icmwSC_2d_bin_template.nml) or [Sc 2d bulk template](https://github.com/Adehill/KiD-A/blob/master/namelists/kida_icmwSC_2d_bulk_template.nml) ).
+- To build the 2D case with gfortran type the following (assuming you are in the KiD-A directory) 
+   - '''make COMPILER=gfortran CASE=ICMW_SC all'''
+
+## Box model tests with KiD
+In order to understand potential differences between the detailed schemes, we propose running some simple box cases which will test the evolution of the drop size distrbution resulting from 1) collision-coalescence and 2) condensational growth
 
 
 
-### 1D case (warm1) - no aerosol processing
 
-This is the initial cloud microphysics test, which will be run with a fixed aerosol or Nd depending on scheme. The vertical velocity setup for this case is based on the warm1 case, where maximum vertical velocity is set in the namelist to 2 (W2) and 3 (W3) m s-1. For both W2 and W3, we require a simulation for Na or Nd (depending on the scheme) = 50, 150 and 300 cm-3. For each updraft and Nd, you are asked to simulate the following:
-
-cond-evap case - only aersol-activation (dependent on scheme), condensation and evaporation are switched on, i.e. sedimentation, collision-coalescence, breakup, etc. are switched off. Hopefully, this case will show that all schemes produce the same amount of liquid water at about the same rate.
-Precipitating case - all cloud microphysics processes are switched on; however, no removal or replenishment of aerosol and no in-cloud aerosol processing (in schemes that have this functionality) should be simulated.
-Templates for a bin and bulk namelist required to run the 1D case, i.e. namelists/kida_1D_bin_template and namelists/kida_1D_bulk_template.nml, are included in KiD Source code download .
-
-### Sc 2D case - with and without aerosol processing
-
-For the 2D SC case, we require a simulation to be run with maximum vertical velocity (wctrl) = 0.25 and 1 m s-1. Once again wctrl is set in the namelist for the case. Na (or Nd depending on scheme) = 50, 150 and 300 cm-3 for the following configurations:
-
-cond-evap case only aersol-activation (dependent on scheme), condensation and evaporation are switched on, i.e. sedimentation, collision-coalescence, breakup, etc. are switched off. Hopefully, this case will show that all schemes produce the same amount of liquid water at about the same rate.
-Precipitating case - no removal or replenishment of aerosol and no in-cloud aerosol processing.
-Precip case with aerosol processing - this will include the removal of aerosol by activation scavenging, replenishment of aerosol by evaporation and in-cloud aerosol processing.
-In all cases, we apply the following spin-up
-- 0 - 10 mins - During this period maximum supersaturation is restricted to 0.5%, all velocities are 0 and precipitation processes are switched off.
-- 10 - 20 mins - supersaturation is no longer restricted and velocities gradually increase to the wctrl but precipitation processes are switched off
-- 20 - 30 mins - run for 10 minutes with standard wctrl (0.25 or 1 m s-1) with precipitation switched off
-- 30 - 3 hours 30 mins - run with precipitation switched on
-The reason for this 30 minute initialisation is because the case starts with a supersaturation, which can cause some models some problems. Also, the 30 muinute initialisation permits the development of the cloud drop distribution in the bin and super-droplet schemes, prior to precipitation processes.
-To set-up this initialisation, we have added the following switches to the KiD model and the namelists:
-
-no_precip_time = 1800.0 ! The time from beginning of simulation with no precipitation processes or sedimentation
-smax_limit_time = 600.0 ! The time from the beginning of the simulation with in which a maximum supersaturation is applied
-smax = 0.5 ! the maximum percentage supersaturation during smax_limit_time
-Participants need to add these switches to the appropriate parts of the microphysics code so that the recommended initialisation is used. The switches are stored in the namelists module.
-
-Templates for a bin and bulk namelist required to run the 2D Sc case, i.e. namelists/kida_wmoSC_2d_bin_template.nml and namelists/kida_wmoSC_2d_bulk_template.nml, are included in KiD Source code download . Finally, to build the executable for the WMO case use CASE=WMO_CASE1 in the make statement (see the documentation).
-
-## Diagnostics
+# Diagnostics
 
 The example diagnostic outputs (see links above) present standard diagnostic output for the KiD model. Once a microphysics scheme is coupled with the KiD framework, we believe that all cloud microphysics fields accept the process rates and precipitation rates will be automatically output. The participant will need to add a save_dg call to their scheme to store the process and precipitation rates that are output from their scheme. Details about adding diagnostics to a scheme are presented in the documentation, with examples available in the Morrison, Thompson and TAU schemes that are available with the download.
 

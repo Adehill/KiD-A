@@ -23,7 +23,7 @@ mphys_scheme='thompson09'
 dt=1.0
 dgstart=0.0
 dg_dt=10.0
-wctrl(1)=2.0
+wctrl(1)=2.00
 tctrl(1)=3600.
 tctrl(2)=600.
 /
@@ -31,9 +31,9 @@ tctrl(2)=600.
 &switch
 ! Standard switches for the 1D case
 ! do not modify for intercomparison
-l_diverge=.True.
+l_diverge=.False.
 l_fix_theta=.true.
-l_diverge_advection=.True.
+l_diverge_advection=.False.
 l_periodic_bound=.False.
 ! If included in code the switch below can be used to control 
 ! activation scavenging and in-cloud processing. 

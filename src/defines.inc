@@ -43,7 +43,7 @@ D1=DEF_NX=200
 D2=DEF_NZ=120
 endif
 
-ifeq ($(CASE), WMO_CASE1)
+ifeq ($(CASE), ICMW_SC)
 D1=DEF_NX=60
 D2=DEF_NZ=61
 endif
