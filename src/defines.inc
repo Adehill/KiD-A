@@ -48,7 +48,7 @@ D1=DEF_NX=60
 D2=DEF_NZ=61
 endif
 
-ifeq ($(CASE), CMW_BOX)
+ifeq ($(CASE), ICMW_BOX)
 D1=DEF_NX=1
 D2=DEF_NZ=2
 endif
