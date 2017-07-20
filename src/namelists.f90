@@ -43,7 +43,7 @@ module namelists
        , l_noadv_hydrometeors, l_nodiv_hydrometeors, l_sediment &
        , isurface, l_noadv_aerosols, l_nodiv_aerosols, l_fix_aerosols &
        , l_diverge_advection, l_periodic_bound  &
-       , l_force_positive, l_raut &
+       , l_force_positive, l_raut, l_constant_density &
        ! TAU bin switches
        , l_act, l_cond_evap, l_coll_coal, l_break, l_fix_supersat &
        , l_dist_activated_drops, mu_act, act_bin_ind

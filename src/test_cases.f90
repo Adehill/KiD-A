@@ -923,8 +923,12 @@ contains
     where (qv<1e-6) qv=1e-6
 
     p_surf=p0
+
     call z2exner
-    
+    if (l_constant_density) then
+       rho(:) = 1.0
+    endif
+       
     call calc_derived_fields
     
     deallocate(pqv)

@@ -23,7 +23,7 @@ mphys_scheme='thompson09'
 dt=1.0
 dgstart=0.0
 dg_dt=10.0
-wctrl(1)=2.00
+wctrl(1)=3.00
 tctrl(1)=3600.
 tctrl(2)=600.
 /
@@ -35,6 +35,8 @@ l_diverge=.False.
 l_fix_theta=.true.
 l_diverge_advection=.False.
 l_periodic_bound=.False.
+! sets the density to 1 kg/m^-3 so different to Shipway and Hill (2012)
+l_constant_density=.True.  
 ! If included in code the switch below can be used to control 
 ! activation scavenging and in-cloud processing. 
 ! Set to true if these processes are NOT required. The 

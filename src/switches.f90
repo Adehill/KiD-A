@@ -188,6 +188,9 @@ Module switches
   
   logical :: l_cu_cold=.false. ! make the cumulus case 20C colder
 
+  logical :: l_constant_density=.false. ! set air density constant with height
+                                        ! assumed density will 1 kg/m^3
+
   !---------------------------------------
   ! microphysics scheme specific switches
   !---------------------------------------
