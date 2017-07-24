@@ -43,9 +43,9 @@ In both cases aerosol are assumed to be soluble ammonium sulfate particles. The 
 ### 1D case
 - This is the initial cloud microphysics case with simple 1D updraft, which is based on Shipway and Hill (2012). The case employs a fixed aerosol or Nd depending on scheme (no aerosol processing)
 - Two vertical velocity set-ups are requested for this case, i.e.
-   - W1p25 where ```wctrl = 1.25 m s^{-1}```
-   - W2 where ```wctrl = 2 m s^{-1}```
-      - NOTE: The updraft velocities are lower than previous iterations of this project and Shipway and Hill (2012) because the divergence term has been switched. This is required for a fair comparison between the bin and lagrangian model. 
+   - W1p25 where ```wctrl = 2 m s<sup>-1<sup>```
+   - W2 where ```wctrl = 3 m s<sup>-1<sup>```
+      - NOTE: The updraft velocities are the as previous iterations of this project and Shipway and Hill (2012) but the atmospheric density (rho) is 1 kg m^-3 and the divergence term has been switched. This is required for a fair comparison between the bin and lagrangian model and reduce the dynamic terms, which may impact the comparison. 
 - For both W1p25 and W2, we require a simulation for Na or Nd (depending on the scheme) = 50, 150 and 300 cm-3.
 - For each updraft and Nd, you are asked to simulate the following:
    - cond-evap case - only aersol-activation (dependent on scheme), condensation and evaporation are switched on, i.e. sedimentation, collision-coalescence, breakup, etc. are switched off.
@@ -59,7 +59,7 @@ make COMPILER=gfortran CASE=1D all
    
 ### 2D stratocumulus (Sc 2D)
 - based on the case 4 from the 9th International Cloud modelling workshop (2016).
-- we require a simulation to be run with maximum vertical velocity (wctrl) = 0.25 and 1 m s-1. Once again wctrl is set in the namelist for the case. Na (or Nd depending on scheme) = 50, 150 and 300 cm-3 for the following configurations:
+- we require a simulation to be run with maximum vertical velocity (wctrl) = 0.25 and 1 m s<sup>-1<sup>. Once again wctrl is set in the namelist for the case. Na (or Nd depending on scheme) = 50, 150 and 300 cm-3 for the following configurations:
    - cond-evap case only aersol-activation (dependent on scheme), condensation and evaporation are switched on, i.e. sedimentation, collision-coalescence, breakup, etc. are switched off.
    - Precipitating case - no removal or replenishment of aerosol and no in-cloud aerosol processing (where this is possible with your scheme)
    - Precip case with aerosol processing - this will include the removal of aerosol by activation scavenging, replenishment of aerosol by evaporation and in-cloud aerosol processing.
@@ -109,7 +109,7 @@ l_fix_supersat = .True. ! Allow user to prescribe supersaturation. This is
 - Condensational growth is then forced by ```l_fix_supersat = .True.``` and a prescribed supersaturation of 0.1% for 10 minutes, using ```smax = 0.1```
 - In order to test condensational growth alone, it is important that sedimentation, collision-coalescence and activation are switched off in your scheme (as demonstrated in the above code block).
 - As with previous tests, we would like participants to provide a tests with
-   - Nd = 50, 150 and 300 cm^{-1}
+   - Nd = 50, 150 and 300 cm<sup>-1<sup>
    - mu = 0.0 and 2.5
 
 ### Box - Collision-coalescence growth
@@ -134,7 +134,7 @@ l_fix_supersat = .false. ! Allow user to prescribe supersaturation. This is
 ```
 
 - As with previous tests, we would like participants to provide a tests with
-   - Nd = 50, 150 and 300 cm^{-1}
+   - Nd = 50, 150 and 300 cm<sup>-1<sup>
    - mu = 0.0 and 2.5
 
 # Diagnostics
