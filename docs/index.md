@@ -43,10 +43,10 @@ In both cases aerosol are assumed to be soluble ammonium sulfate particles. The 
 ### 1D case
 - This is the initial cloud microphysics case with simple 1D updraft, which is based on Shipway and Hill (2012). The case employs a fixed aerosol or Nd depending on scheme (no aerosol processing)
 - Two vertical velocity set-ups are requested for this case, i.e.
-   - W1p25 where ```wctrl = 2 m/s```
-   - W2 where ```wctrl = 3 m/s```
-      - NOTE: The updraft velocities are the as previous iterations of this project and Shipway and Hill (2012) but the atmospheric density (rho) is 1 kg m<sup>-3</sup> and the divergence term has been switched. This is required for a fair comparison between the bin and lagrangian model and reduce the dynamic terms, which may impact the comparison. 
-- For both W1p25 and W2, we require a simulation for Na or Nd (depending on the scheme) = 50, 150 and 300 cm<sup>-3</sup>.
+   - W2 where ```wctrl = 2 m/s```
+   - W3 where ```wctrl = 3 m/s```
+      - NOTE: The updraft velocities are the same as previous iterations of this project and Shipway and Hill (2012) but the atmospheric density (rho) is 1 kg m<sup>-3</sup> and the divergence term has been switched off. This is required for a fair comparison between the bin and lagrangian model and reduce the dynamic terms, which may impact the comparison. 
+- For both W2 and W3, we require a simulation for Na or Nd (depending on the scheme) = 50, 150 and 300 cm<sup>-3</sup>.
 - For each updraft and Nd, you are asked to simulate the following:
    - cond-evap case - only aersol-activation (dependent on scheme), condensation and evaporation are switched on, i.e. sedimentation, collision-coalescence, breakup, etc. are switched off.
    - Precipitating case - all cloud microphysics processes are switched on; however, no removal or replenishment of aerosol and no in-cloud aerosol processing (in schemes that have this functionality) should be simulated.
