@@ -904,10 +904,19 @@ contains
     allocate(pqv(3))
     allocate(theta_1d(nz))
     allocate(qv_1d(nz))
-    
-    pheight=(/ 0., 740., 3260./)
-    ptheta=(/ 297.9, 297.9, 312.66 /)
-    pqv=(/ .015, .0138, .0024 /)
+
+    if (l_fix_theta) then 
+       !standard profile from SHipway and Hill
+       pheight=(/ 0., 740., 3260./)
+       ptheta=(/ 297.9, 297.9, 312.66 /)
+       pqv=(/ .015, .0138, .0024 /)
+    else
+       !profile with interactive potential T repsonse, Needs own test-case
+       pheight=(/ 0., 740., 3260./)
+       ptheta=(/ 297.9, 297.9, 320. /)
+       pqv=(/ .015, .0138, .0001 /)
+    endif
+
     do k=1,nz
        z(k)=maxZ*k/float(nz)
     end do
